@@ -20,9 +20,27 @@ Initiate execution of one or more tasks for a given spec.
 <agent_detection>
   <check_once>
     AT START OF PROCESS:
-    SET has_git_workflow = (Claude Code AND git-workflow agent exists)
-    SET has_test_runner = (Claude Code AND test-runner agent exists)
-    SET has_context_fetcher = (Claude Code AND context-fetcher agent exists)
+    SET has_claude_code = (Claude Code is available)
+    SET has_gemini_cli = (Gemini CLI is available)
+
+    IF has_claude_code:
+      SET has_git_workflow_claude = (git-workflow agent exists for Claude)
+      SET has_test_runner_claude = (test-runner agent exists for Claude)
+      SET has_context_fetcher_claude = (context-fetcher agent exists for Claude)
+    ELSE:
+      SET has_git_workflow_claude = false
+      SET has_test_runner_claude = false
+      SET has_context_fetcher_claude = false
+
+    IF has_gemini_cli:
+      SET has_git_workflow_gemini = (git-workflow agent exists for Gemini)
+      SET has_test_runner_gemini = (test-runner agent exists for Gemini)
+      SET has_context_fetcher_gemini = (context-fetcher agent exists for Gemini)
+    ELSE:
+      SET has_git_workflow_gemini = false
+      SET has_test_runner_gemini = false
+      SET has_context_fetcher_gemini = false
+
     USE these flags throughout execution
   </check_once>
 </agent_detection>
@@ -71,7 +89,13 @@ Initiate execution of one or more tasks for a given spec.
 </step_metadata>
 
 <instructions>
-  IF has_context_fetcher:
+  IF has_context_fetcher_claude:
+    USE: @agent:context-fetcher for each file not in context:
+    - REQUEST: "Get product pitch from mission-lite.md"
+    - REQUEST: "Get spec summary from spec-lite.md" 
+    - REQUEST: "Get technical approach from technical-spec.md"
+    PROCESS: Returned information
+  ELSE IF has_context_fetcher_gemini:
     USE: @agent:context-fetcher for each file not in context:
     - REQUEST: "Get product pitch from mission-lite.md"
     - REQUEST: "Get spec summary from spec-lite.md" 
@@ -165,7 +189,14 @@ IF NOT using context-fetcher agent:
 </step_metadata>
 
 <instructions>
-  IF has_git_workflow:
+  IF has_git_workflow_claude:
+    USE: @agent:git-workflow
+    REQUEST: "Check and manage branch for spec: [SPEC_FOLDER]
+              - Create branch if needed
+              - Switch to correct branch
+              - Handle any uncommitted changes"
+    WAIT: For branch setup completion
+  ELSE IF has_git_workflow_gemini:
     USE: @agent:git-workflow
     REQUEST: "Check and manage branch for spec: [SPEC_FOLDER]
               - Create branch if needed
@@ -285,7 +316,13 @@ IF NOT using git-workflow agent:
 </step_metadata>
 
 <instructions>
-  IF has_test_runner:
+  IF has_test_runner_claude:
+    USE: @agent:test-runner
+    REQUEST: "Run the full test suite"
+    WAIT: For test-runner analysis
+    PROCESS: Fix any reported failures
+    REPEAT: Until all tests pass
+  ELSE IF has_test_runner_gemini:
     USE: @agent:test-runner
     REQUEST: "Run the full test suite"
     WAIT: For test-runner analysis
@@ -337,7 +374,16 @@ IF NOT using test-runner agent:
 </step_metadata>
 
 <instructions>
-  IF has_git_workflow:
+  IF has_git_workflow_claude:
+    USE: @agent:git-workflow
+    REQUEST: "Complete git workflow for [SPEC_NAME] feature:
+              - Spec: [SPEC_FOLDER_PATH]
+              - Changes: All modified files
+              - Target: main branch
+              - Description: [SUMMARY_OF_IMPLEMENTED_FEATURES]"
+    WAIT: For workflow completion
+    PROCESS: Save PR URL for summary
+  ELSE IF has_git_workflow_gemini:
     USE: @agent:git-workflow
     REQUEST: "Complete git workflow for [SPEC_NAME] feature:
               - Spec: [SPEC_FOLDER_PATH]

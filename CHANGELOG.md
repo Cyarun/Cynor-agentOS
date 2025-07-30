@@ -5,6 +5,19 @@ All notable changes to Agent OS will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2025-07-30
+
+### Added
+- **Gemini CLI Integration** - New components to integrate with Google's Gemini CLI:
+  - `gemini-code/` directory with `GEMINI.md` for Gemini-specific configurations and agents.
+  - `setup-gemini-code.sh` script for installing Gemini CLI Agent OS components.
+
+### Changed
+- **Instruction Files** - Updated to support conditional agent usage for Gemini CLI:
+  - `execute-tasks.md` - Now includes conditional logic for Gemini CLI agents (context-fetcher, git-workflow, test-runner).
+  - `plan-product.md` - Now includes conditional logic for Gemini CLI agents (file-creator, context-fetcher) and updated fallback sequence to include `~/.gemini/GEMINI.md`.
+- **Setup Script** - `setup.sh` updated to include instructions for installing Gemini CLI Agent OS components.
+
 ## [1.2.0] - 2025-07-29
 
 ### Added

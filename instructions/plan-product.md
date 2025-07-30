@@ -20,8 +20,23 @@ Generate product docs for new projects: mission, tech-stack, roadmap, decisions 
 <agent_detection>
   <check_once>
     AT START OF PROCESS:
-    SET has_file_creator = (Claude Code AND file-creator agent exists)
-    SET has_context_fetcher = (Claude Code AND context-fetcher agent exists)
+    SET has_claude_code = (Claude Code is available)
+    SET has_gemini_cli = (Gemini CLI is available)
+
+    IF has_claude_code:
+      SET has_file_creator_claude = (file-creator agent exists for Claude)
+      SET has_context_fetcher_claude = (context-fetcher agent exists for Claude)
+    ELSE:
+      SET has_file_creator_claude = false
+      SET has_context_fetcher_claude = false
+
+    IF has_gemini_cli:
+      SET has_file_creator_gemini = (file-creator agent exists for Gemini)
+      SET has_context_fetcher_gemini = (context-fetcher agent exists for Gemini)
+    ELSE:
+      SET has_file_creator_gemini = false
+      SET has_context_fetcher_gemini = false
+
     USE these flags throughout execution
   </check_once>
 </agent_detection>
@@ -47,12 +62,17 @@ Generate product docs for new projects: mission, tech-stack, roadmap, decisions 
   <fallback_sequence>
     1. @~/.agent-os/standards/tech-stack.md
     2. @~/.claude/CLAUDE.md
-    3. Cursor User Rules
+    3. @~/.gemini/GEMINI.md
+    4. Cursor User Rules
   </fallback_sequence>
 </data_sources>
 
 <instructions>
-  IF has_context_fetcher:
+  IF has_context_fetcher_claude:
+    USE: @agent:context-fetcher
+    REQUEST: "Get tech stack defaults from tech-stack.md"
+    PROCESS: Use returned defaults for missing items
+  ELSE IF has_context_fetcher_gemini:
     USE: @agent:context-fetcher
     REQUEST: "Get tech stack defaults from tech-stack.md"
     PROCESS: Use returned defaults for missing items
@@ -106,7 +126,10 @@ Generate product docs for new projects: mission, tech-stack, roadmap, decisions 
 </git_config>
 
 <instructions>
-  IF has_file_creator:
+  IF has_file_creator_claude:
+    USE: @agent:file-creator
+    REQUEST: "Create directory: .agent-os/product/"
+  ELSE IF has_file_creator_gemini:
     USE: @agent:file-creator
     REQUEST: "Create directory: .agent-os/product/"
   ELSE:
@@ -272,7 +295,12 @@ Generate product docs for new projects: mission, tech-stack, roadmap, decisions 
 </required_items>
 
 <data_resolution>
-  IF has_context_fetcher:
+  IF has_context_fetcher_claude:
+    FOR missing tech stack items:
+      USE: @agent:context-fetcher
+      REQUEST: "Find [ITEM_NAME] from tech-stack.md"
+      PROCESS: Use found defaults
+  ELSE IF has_context_fetcher_gemini:
     FOR missing tech stack items:
       USE: @agent:context-fetcher
       REQUEST: "Find [ITEM_NAME] from tech-stack.md"
@@ -286,7 +314,8 @@ Generate product docs for new projects: mission, tech-stack, roadmap, decisions 
       <then_check>
         1. @~/.agent-os/standards/tech-stack.md
         2. @~/.claude/CLAUDE.md
-        3. Cursor User Rules
+        3. @~/.gemini/GEMINI.md
+        4. Cursor User Rules
       </then_check>
       <else>add_to_missing_list</else>
     </for_each>
