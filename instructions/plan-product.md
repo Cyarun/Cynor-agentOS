@@ -1,52 +1,31 @@
----
-description: Product Planning Rules for Agent OS
-globs:
-alwaysApply: false
-version: 4.0
-encoding: UTF-8
----
+# Instruction: Plan Product
 
-# Product Planning Rules
+## Goal
 
-<ai_meta>
-  <rules>Process XML blocks sequentially, use exact templates, request missing data</rules>
-  <format>UTF-8, LF, 2-space indent, no header indent</format>
-</ai_meta>
+To create a comprehensive technical plan and project setup for a new product based on a user's high-level request. This plan must adhere to all AgentOS standards.
 
-## Overview
+## Process
 
-Generate product docs for new projects: mission, tech-stack, roadmap, decisions files for AI agent consumption.
+1.  **Clarify Requirements:** Engage with the user to understand the core features, goals, and target platform (web, iOS, Android, etc.) of the product.
 
-<agent_detection>
-  <check_once>
-    AT START OF PROCESS:
-    SET has_claude_code = (Claude Code is available)
-    SET has_gemini_cli = (Gemini CLI is available)
+2.  **Select Tech Stack:** Based on the target platform, consult `standards/tech-stack.md` to select the appropriate, pre-approved technology stack.
 
-    IF has_claude_code:
-      SET has_file_creator_claude = (file-creator agent exists for Claude)
-      SET has_context_fetcher_claude = (context-fetcher agent exists for Claude)
-    ELSE:
-      SET has_file_creator_claude = false
-      SET has_context_fetcher_claude = false
+3.  **Propose Initial Plan & Verify Tools:**
+    *   Present the high-level plan and the chosen tech stack to the user.
+    *   State the required command-line tools for the chosen stack (e.g., `node`, `npm`, `python3`, `pip`, `docker`).
+    *   **Ask for permission** to run verification commands to ensure these tools are installed.
 
-    IF has_gemini_cli:
-      SET has_file_creator_gemini = (file-creator agent exists for Gemini)
-      SET has_context_fetcher_gemini = (context-fetcher agent exists for Gemini)
-    ELSE:
-      SET has_file_creator_gemini = false
-      SET has_context_fetcher_gemini = false
+4.  **Create GitHub Issue:**
+    *   After verification, ask the user for a project title.
+    *   Use the GitHub tool to create a new repository (if necessary) and a foundational GitHub Issue titled "Project Scaffolding & Initial Setup."
+    *   Confirm the issue has been created and state the issue number.
 
-    USE these flags throughout execution
-  </check_once>
-</agent_detection>
+5.  **Design Infrastructure & Environments:**
+    *   Based on the chosen tech stack, design the necessary service structure.
+    *   Propose a `docker-compose.yml` file that outlines the services (e.g., `frontend`, `backend`, `db`).
+    *   Outline the environment configuration strategy, specifying the use of `.env` files for `development`, `testing`, and `production`.
 
-<process_flow>
-
-<step number="1" name="gather_user_input">
-
-### Step 1: Gather User Input
-
+<<<<<<< HEAD
 <step_metadata>
   <required_inputs>
     - main_idea: string
@@ -540,3 +519,9 @@ Generate product docs for new projects: mission, tech-stack, roadmap, decisions 
   4. Request any missing information
   5. Validate complete documentation set
 </execution_order>
+=======
+6.  **Finalize Actionable Plan:**
+    *   Combine all of the above into a final, actionable plan.
+    *   This plan is the blueprint for the `/execute-task` command for the initial project setup.
+    *   Present this final plan to the user and **wait for explicit approval** before concluding the planning phase.
+>>>>>>> 4f77e72 (feat(agentos): Comprehensive governance, cloud-native, and Gemini CLI framework implementation)

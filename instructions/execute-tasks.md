@@ -1,56 +1,35 @@
----
-description: Rules to initiate execution of a set of tasks using Agent OS
-globs:
-alwaysApply: false
-version: 1.0
-encoding: UTF-8
----
+# Instruction: Execute Task
 
-# Task Execution Rules
+## Goal
 
-<ai_meta>
-  <rules>Process XML blocks sequentially, use exact templates, request missing data</rules>
-  <format>UTF-8, LF, 2-space indent, no header indent</format>
-</ai_meta>
+To execute a single, well-defined development task, starting from a GitHub Issue and resulting in a high-quality, governance-approved Pull Request.
 
-## Overview
+## Process
 
-Initiate execution of one or more tasks for a given spec.
+1.  **Identify Task:**
+    *   Ask the user for the GitHub Issue number they want you to work on.
+    *   Read the issue to fully understand the requirements.
 
-<agent_detection>
-  <check_once>
-    AT START OF PROCESS:
-    SET has_claude_code = (Claude Code is available)
-    SET has_gemini_cli = (Gemini CLI is available)
+2.  **Create Branch:**
+    *   Use the Git tool to create a new branch from the `main` branch.
+    *   The branch name must follow the convention: `issue/<issue-number>-<short-description>`.
 
-    IF has_claude_code:
-      SET has_git_workflow_claude = (git-workflow agent exists for Claude)
-      SET has_test_runner_claude = (test-runner agent exists for Claude)
-      SET has_context_fetcher_claude = (context-fetcher agent exists for Claude)
-    ELSE:
-      SET has_git_workflow_claude = false
-      SET has_test_runner_claude = false
-      SET has_context_fetcher_claude = false
+3.  **Code Implementation (TDD):**
+    *   Write or modify the unit tests that correspond to the task's requirements.
+    *   Write or modify the application code to fulfill the requirements and make the tests pass.
+    *   Adhere strictly to the coding styles defined in `standards/code-style/`.
 
-    IF has_gemini_cli:
-      SET has_git_workflow_gemini = (git-workflow agent exists for Gemini)
-      SET has_test_runner_gemini = (test-runner agent exists for Gemini)
-      SET has_context_fetcher_gemini = (context-fetcher agent exists for Gemini)
-    ELSE:
-      SET has_git_workflow_gemini = false
-      SET has_test_runner_gemini = false
-      SET has_context_fetcher_gemini = false
+4.  **Mandatory Governance Workflow:**
+    *   This is a critical, automated sequence. You must execute these steps in order.
+    *   **Step 4a: Static Analysis:** Run the appropriate linter (`Ruff` for Python, `ESLint` for JS/TS). If errors are found, fix them and re-run.
+    *   **Step 4b: Testing:** Run the full test suite (`pytest` or `npm test`). If tests fail, debug the code until they all pass.
+    *   **Step 4c: AI Peer Review:** Pause and critically re-read the GitHub Issue and the code you have written. Check for any logical errors, missed requirements, or potential hallucinations. If you find any, correct them and **restart the governance workflow from Step 4a**.
 
-    USE these flags throughout execution
-  </check_once>
-</agent_detection>
+5.  **Generate Governance Report:**
+    *   Once the governance workflow is successfully completed, create the `governance-report.md` file.
+    *   Populate the report with the required information: link to the issue, summary of changes, test results, linter status, and confirmation of the AI peer review.
 
-<process_flow>
-
-<step number="1" name="task_assignment">
-
-### Step 1: Task Assignment
-
+<<<<<<< HEAD
 <step_metadata>
   <inputs>
     - spec_srd_reference: file path
@@ -592,3 +571,11 @@ IF NOT using git-workflow agent:
     - [ ] Summary provided to user
   </verify>
 </final_checklist>
+=======
+6.  **Create Pull Request:**
+    *   Commit all changed files, including the new tests and the `governance-report.md`.
+    *   Use the Git tool to create a new Pull Request.
+    *   The PR title should be descriptive (e.g., `feat: Add user login functionality`).
+    *   The PR body must link to the issue it resolves and include the content of the `governance-report.md`.
+    *   Inform the user that the PR has been created and is ready for their review.
+>>>>>>> 4f77e72 (feat(agentos): Comprehensive governance, cloud-native, and Gemini CLI framework implementation)

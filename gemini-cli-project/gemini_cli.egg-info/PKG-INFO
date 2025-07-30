@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: gemini-cli
+Version: 0.1.0
+Summary: A CLI for interacting with Google Gemini, built with AgentOS principles.
+Author: AgentOS & Gemini
+Requires-Dist: typer>=0.12.3
+Requires-Dist: httpx>=0.27.0
+Requires-Dist: ruff>=0.5.0
+Requires-Dist: pytest>=8.3.2

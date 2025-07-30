@@ -1,57 +1,44 @@
-# Development Best Practices
+# AgentOS Best Practices & Governance Framework
 
-## Context
+This document outlines the mandatory principles and workflows for all development performed by an AgentOS-powered agent. These rules ensure quality, consistency, security, and transparency across all projects.
 
-Global development guidelines for Agent OS projects.
+## 1. Project Lifecycle & Version Control
 
-<conditional-block context-check="core-principles">
-IF this Core Principles section already read in current context:
-  SKIP: Re-reading this section
-  NOTE: "Using Core Principles already in context"
-ELSE:
-  READ: The following principles
+-   **Source of Truth:** GitHub is the single source of truth for all code.
+-   **Issue-Driven Development:** All work must begin with a GitHub Issue. No feature, bug fix, or chore should be started without a corresponding issue.
+-   **Branching Strategy:** All branches must be created from an issue and named using the pattern `issue/<issue-number>-<short-description>` (e.g., `issue/42-add-user-login`).
+-   **Pull Requests:** Work is considered complete only when a Pull Request (PR) has been created, has passed all checks, and has been merged. The PR description must link to the issue it resolves.
 
-## Core Principles
+## 2. Infrastructure & Environments
 
-### Keep It Simple
-- Implement code in the fewest lines possible
-- Avoid over-engineering solutions
-- Choose straightforward approaches over clever ones
+-   **Cloud-Native Deployment:** The target deployment environment is a pre-existing, remote **MCP (Multi-Cloud Platform) server**. The agent must not attempt to run services locally.
+-   **Containerization:** All applications and services must be containerized using Docker. The agent is responsible for creating a `Dockerfile` for each service and a root `docker-compose.yml` to orchestrate them.
+-   **Environment Management:** All projects must be designed with three environments in mind: `development`, `testing`, and `production`. Configuration for these environments must be managed via `.env` files (e.g., `.env.development`, `.env.production`) and must not be committed to version control.
 
-### Optimize for Readability
-- Prioritize code clarity over micro-optimizations
-- Write self-documenting code with clear variable names
-- Add comments for "why" not "what"
+## 3. Development Governance & Quality Assurance
 
-### DRY (Don't Repeat Yourself)
-- Extract repeated business logic to private methods
-- Extract repeated UI markup to reusable components
-- Create utility functions for common operations
+This four-step process is **mandatory** for every task that involves writing or modifying code. It must be performed before a Pull Request is created.
 
-### File Structure
-- Keep files focused on a single responsibility
-- Group related functionality together
-- Use consistent naming conventions
-</conditional-block>
+-   **Principle 1: Automated Static Analysis**
+    -   **Action:** The agent must run the appropriate linter on the code.
+    -   **Tooling:** Use **Ruff** for Python and **ESLint/Prettier** for JavaScript/TypeScript.
+    -   **Outcome:** The code must be free of any linting errors.
 
-<conditional-block context-check="dependencies" task-condition="choosing-external-library">
-IF current task involves choosing an external library:
-  IF Dependencies section already read in current context:
-    SKIP: Re-reading this section
-    NOTE: "Using Dependencies guidelines already in context"
-  ELSE:
-    READ: The following guidelines
-ELSE:
-  SKIP: Dependencies section not relevant to current task
+-   **Principle 2: Test-Driven Development (TDD)**
+    -   **Action:** For any new logic, the agent must generate unit tests that validate its correctness. These tests should be written alongside or before the feature code.
+    -   **Tooling:** Use **pytest** for Python and **Jest** or **Vitest** for JavaScript/TypeScript.
+    -   **Outcome:** All tests must pass.
 
-## Dependencies
+-   **Principle 3: AI Peer Review (Anti-Hallucination)**
+    -   **Action:** After passing automated checks, the agent must perform a "self-critique." It will re-read the original GitHub Issue and the generated code to check for deviations, logical errors, or hallucinations.
+    -   **Outcome:** The agent must confirm this review was completed and fix any issues it finds, re-running the automated checks afterward.
 
-### Choose Libraries Wisely
-When adding third-party dependencies:
-- Select the most popular and actively maintained option
-- Check the library's GitHub repository for:
-  - Recent commits (within last 6 months)
-  - Active issue resolution
-  - Number of stars/downloads
-  - Clear documentation
-</conditional-block>
+-   **Principle 4: Governance Reporting**
+    -   **Action:** Upon successful completion of the first three principles, the agent must generate a `governance-report.md` file.
+    -   **Content:** The report must contain:
+        -   A link to the GitHub Issue.
+        -   A high-level summary of the changes.
+        -   The results of the test suite (e.g., "12/12 tests passed").
+        -   The results of the linter (e.g., "No linting errors found").
+        -   A confirmation statement that the AI Peer Review was completed successfully.
+    -   **Outcome:** This report must be committed alongside the code and included in the Pull Request description. It is the primary artifact for human oversight.
