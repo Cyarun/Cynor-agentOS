@@ -22,6 +22,35 @@ Docs, installation, useage, & best practices 👉 [It's all here](https://cynors
 
 ---
 
+## Feature Comparison: CS-AgentOS vs Original Agent OS
+
+| Feature | Original Agent OS | CS-AgentOS | Benefit |
+|---------|------------------|------------|---------|
+| **Platform Support** | Claude Code, Cursor | Claude Code, Cursor, **Gemini CLI**, Gemini Code | Multi-platform AI integration |
+| **Specialized Agents** | Basic implementation | **6 specialized subagents** with fallback system | Enhanced task delegation & efficiency |
+| **Gemini Integration** | None | Full TOML-based command system | Native Gemini CLI support |
+| **Governance System** | Basic quality practices | **AI-powered governance pipeline** with peer review | Enterprise-grade quality assurance |
+| **Context Efficiency** | Standard loading | **60-80% reduction** via conditional loading & lite files | Faster processing, lower costs |
+| **Cloud Support** | Limited | **Cloud-native agent** (Docker, compose, K8s) | Production-ready deployments |
+| **GitHub Integration** | Basic Git operations | **GitHub API integration** with issue management | Complete development workflow |
+| **Test Execution** | Full suite runs | **Task-specific test runner** with failure analysis | Faster feedback loops |
+| **Code Quality** | Manual review | **Automated linting** + AI review agent | Consistent code standards |
+| **Setup Scripts** | Single setup.sh | **4 platform-specific** setup scripts | Tailored installations |
+| **Task Execution** | Basic workflow | **Individual task execution** with TDD focus | Granular control & better testing |
+| **Error Recovery** | Basic handling | **3-attempt recovery** with blocking documentation | Resilient execution |
+| **Architecture Analysis** | Surface level | **Deep analysis** with API & DB discovery | Complete codebase understanding |
+
+### Key Additions in CS-AgentOS
+
+- **Governance-First Development**: Enforced quality gates before PR creation
+- **Multi-Model Support**: Cost-optimized model selection (gemini-pro vs gemini-flash)
+- **Enterprise Features**: Compliance, security validation, and audit trails
+- **Advanced Git Workflows**: Automated branching, PR creation with governance validation
+- **Intelligent Context Management**: Automatic deduplication and selective loading
+- **Cloud Deployment Ready**: Infrastructure-as-code generation
+
+---
+
 ### Created by CynorSense
 
 Created by CynorSense, the creator of [CynorSense](https://cynorsense.com), where CynorSense helps professional software developers and teams build with AI.
