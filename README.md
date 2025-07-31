@@ -4,6 +4,8 @@
 
 [CS-AgentOS](https://cynorsense.com/CS-AgentOS) transforms AI coding agents from confused interns into productive developers. With structured workflows that capture your standards, your stack, and the unique details of your codebase, CS-AgentOS gives your agents the specs they need to ship quality code on the first try—not the fifth.
 
+> **Note**: This repository is a fork and enhancement of the original [Agent OS](https://github.com/buildermethods/agent-os) created by [Builder Methods](https://github.com/buildermethods). CS-AgentOS builds upon the excellent foundation of Agent OS with additional features, integrations, and enterprise capabilities while maintaining compatibility with the original system.
+
 Use it with:
 
 ✅ Claude Code, Cursor, or any other AI coding tool.
