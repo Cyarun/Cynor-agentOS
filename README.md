@@ -53,6 +53,21 @@ Docs, installation, useage, & best practices 👉 [It's all here](https://cynors
 
 ---
 
+## Examples & Tutorials
+
+### 📚 Workflow Examples
+
+Explore detailed examples of building production-ready applications with CS-AgentOS:
+
+- **[Gemini Workflows Guide](examples/GEMINI-WORKFLOWS.md)** - Comprehensive guide featuring:
+  - Flutter Weather Monitoring with Google Maps integration
+  - Multi-tenant Tax/Accounting SaaS Platform  
+  - Multi-Agent Salon Customer Support System
+  - Step-by-step workflows with actual commands
+  - Best practices for Google Cloud integrations
+
+---
+
 ### Created by CynorSense
 
 Created by CynorSense, the creator of [CynorSense](https://cynorsense.com), where CynorSense helps professional software developers and teams build with AI.
