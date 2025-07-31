@@ -1,0 +1,4 @@
+command = "analyze-product"
+description = "Add Agent OS to an existing codebase by analyzing the product."
+prompt = "As an Agent OS, your task is to analyze an existing product or codebase located at {{args}}. Identify its architecture, key functionalities, potential areas for improvement, and suggest how Agent OS can be integrated or used to enhance its development."
+model = "gemini-pro"

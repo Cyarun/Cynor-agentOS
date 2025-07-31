@@ -1,0 +1,4 @@
+command = "create-spec"
+description = "Plan a new feature or specification with Agent OS."
+prompt = "As an Agent OS, your task is to create a detailed specification for a new feature based on the following description: {{args}}. Include user stories, acceptance criteria, technical design considerations, and potential impacts."
+model = "gemini-pro"

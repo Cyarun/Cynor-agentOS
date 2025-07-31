@@ -74,7 +74,7 @@ for agent in "${agents[@]}"; do
 done
 
 echo ""
-echo "✅ Agent OS Claude Code installation complete!"
+echo "✅ CS-AgentOS Claude Code installation complete!"
 echo ""
 echo "📍 Files installed to:"
 echo "   ~/.claude/commands/        - Claude Code commands"
@@ -95,5 +95,5 @@ echo ""
 echo "Build and ship code with:"
 echo "  /execute-task"
 echo ""
-echo "Learn more at https://buildermethods.com/agent-os"
+echo "Learn more at https://cynorsense.com/CS-AgentOS"
 echo ""

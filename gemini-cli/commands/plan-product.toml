@@ -1,0 +1,4 @@
+command = "plan-product"
+description = "Initiate a new product planning workflow with Agent OS."
+prompt = "As an Agent OS, your task is to plan a new product based on the following idea: {{args}}. Consider market needs, user stories, technical feasibility, and potential challenges. Outline a high-level product vision and key features."
+model = "gemini-pro" # Or gemini-flash, based on preference

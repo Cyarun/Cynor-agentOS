@@ -1,0 +1,4 @@
+command = "execute-tasks"
+description = "Build and ship code by executing tasks with Agent OS."
+prompt = "As an Agent OS, your task is to execute the following development tasks: {{args}}. This may involve code implementation, testing, static analysis, and generating a governance report. Prioritize safe and efficient execution."
+model = "gemini-pro"
