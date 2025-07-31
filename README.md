@@ -59,6 +59,13 @@ Docs, installation, useage, & best practices 👉 [It's all here](https://cynors
 
 Explore detailed examples of building production-ready applications with CS-AgentOS:
 
+- **[Claude Code Workflows Guide](examples/CLAUDE-CODE-WORKFLOWS.md)** - Advanced workflows leveraging specialized subagents:
+  - Flutter Weather App with TDD and advanced testing strategies
+  - Enterprise Tax/Accounting Platform with AI governance
+  - AI-Powered Multi-Agent Support System with orchestration
+  - Deep dive into Claude Code's unique architecture
+  - Best practices for context-efficient development
+
 - **[Gemini Workflows Guide](examples/GEMINI-WORKFLOWS.md)** - Comprehensive guide featuring:
   - Flutter Weather Monitoring with Google Maps integration
   - Multi-tenant Tax/Accounting SaaS Platform  

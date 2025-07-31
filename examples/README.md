@@ -4,7 +4,28 @@ This directory contains comprehensive examples and tutorials for using CS-AgentO
 
 ## Available Examples
 
-### 1. [Gemini Workflows Guide](GEMINI-WORKFLOWS.md)
+### 1. [Claude Code Workflows Guide](CLAUDE-CODE-WORKFLOWS.md)
+Complete guide for using CS-AgentOS with Claude Code, featuring:
+
+- **Flutter Weather App with Advanced Testing**
+  - TDD workflow with specialized test-runner agent
+  - Context-efficient development
+  - Comprehensive testing strategy
+  - Git workflow automation
+
+- **Enterprise Tax/Accounting Platform**
+  - Multi-tenant architecture with governance
+  - AI-powered code review
+  - Security-first development
+  - Compliance documentation
+
+- **AI-Powered Multi-Agent Support System**
+  - Specialized agent orchestration
+  - Inter-agent communication
+  - Performance monitoring
+  - Modular deployment
+
+### 2. [Gemini Workflows Guide](GEMINI-WORKFLOWS.md)
 Complete guide for using CS-AgentOS with Gemini CLI, featuring:
 
 - **Flutter Weather Monitoring App**
