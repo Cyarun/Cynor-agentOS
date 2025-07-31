@@ -18,6 +18,19 @@ Use it with:
 
 ---
 
+### How it works
+
+1. **Installing Agent OS**: Run a single command to create the Agent OS directory in your home folder. This will contain all of your standards and preferences.
+2. **Create Your Standards**: Define your preferred tech stack, coding style, and best practices. Your agent will refer to these standards on every project.
+3. **Agent OS for Claude Code**: For Claude Code users, your standards are automatically loaded into your agent's context on every prompt.
+4. **Agent OS for Gemini**: For Gemini users, your standards are loaded via the Gemini CLI, giving you command-line access to your agent.
+5. **New & Existing Product Specs**: For new ideas, your agent will generate a full product spec, including user stories, technical requirements, and a validation plan. For existing codebases, your agent will analyze the code and generate a spec based on its findings.
+6. **Creating Feature Specs**: When you're ready to build, your agent will create a feature spec, including the implementation plan, file-by-file changes, and a testing strategy.
+7. **Executing Tasks**: Your agent will execute the tasks from the feature spec, writing code, running tests, and debugging as it goes.
+8. **Refining Your System**: As you work, you can refine your standards and preferences, making your agent smarter and more efficient over time.
+
+---
+
 ### Documentation & Installation
 
 Docs, installation, useage, & best practices 👉 [It's all here](https://cynorsense.com/CS-AgentOS)
